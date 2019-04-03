@@ -97,6 +97,8 @@ public class CustomView extends View {
                 mPaintText.setTextSize(SMALL_TEXT_SIZE);
                 canvas.drawText(String.valueOf(i), cx - (mPaintText.measureText(String.valueOf(i)) / 2), cy - radius + mPaintText.getTextSize(), mPaintText);
             }
+
+//            por cada vez que se ejecuta el for loop rotar el customView 10 grados
             canvas.rotate(DEGREES_ADVANCE, cx, cy);
         }
     }

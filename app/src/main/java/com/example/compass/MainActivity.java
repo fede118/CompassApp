@@ -1,3 +1,4 @@
+// Brujula con Custom View
 package com.example.compass;
 
 import android.graphics.Color;
@@ -14,13 +15,15 @@ import com.example.compass.views.CustomView;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private Sensor magnetometer;
+
+    private float[] gravity;
+    private float[] geomagnetic;
 
     TextView azimuthTextView;
     CustomView compass;
-
-    private SensorManager sensorManager;
-    Sensor accelerometer;
-    Sensor magnetometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         compass = findViewById(R.id.compassView);
 
+//        inicializando los sensores: acelerometro y de campo magnetico
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -56,14 +60,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    float[] gravity;
-    float[] geomagnetic;
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) gravity = event.values;
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) geomagnetic = event.values;
         if (gravity != null && geomagnetic != null) {
+//            getRotationMatrix computa la Inclinacion y la Rotacion
             float[] R = new float[9];
             float[] I = new float[9];
             boolean success = SensorManager.getRotationMatrix(R, I, gravity, geomagnetic);
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //                float pitch = orientation[1];
 //                float roll = orientation[2];
 
-//                azimuth to 360 degrees
+//                azimuth to 360 degrees, antes era -180 a 180
                 float azimuthTo360 = (float) ((Math.toDegrees(azimuth) + 360) % 360);
 
                 azimuthTextView.setText(String.format(Locale.getDefault(),"%f°",azimuthTo360));
