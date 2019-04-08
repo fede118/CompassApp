@@ -15,6 +15,9 @@ public class CustomView extends View {
     private static final int SMALL_TEXT_SIZE = 30; // tamaño de los grados en la circunsferencia
     private static final int DEGREES_ADVANCE = 10; // cada cuantos grados realizar un texto en la circunsferencia
 
+    private static final String MY_RED = "#e24141";
+    private static final String MY_GRAY = "#8a94a3";
+
     private Paint mPaintText;
     private Paint mPaintCircle;
     private Paint mPaintSmallCircle;
@@ -48,7 +51,7 @@ public class CustomView extends View {
 //        big circle
         mPaintCircle = new Paint();
         mPaintCircle.setAntiAlias(true);
-        mPaintCircle.setColor(Color.parseColor("#8a94a3"));
+        mPaintCircle.setColor(Color.parseColor(MY_GRAY));
 
 //        inner circle
         mPaintSmallCircle = new Paint();
@@ -81,7 +84,7 @@ public class CustomView extends View {
         for (int i = 0; i < 360; i += DEGREES_ADVANCE){
             if (i == 0) {
                 mPaintText.setTextSize(BIG_TEXT_SIZE);
-                mPaintText.setColor(Color.parseColor("#e24141"));
+                mPaintText.setColor(Color.parseColor(MY_RED));
                 canvas.drawText("N", cx - (mPaintText.measureText("N") / 2), cy - radius + mPaintText.getTextSize(), mPaintText);
             } else if (i == 90) {
                 mPaintText.setTextSize(BIG_TEXT_SIZE);

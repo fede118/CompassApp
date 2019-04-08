@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //                azimuth to 360 degrees, antes era -180 a 180
                 float azimuthTo360 = (float) ((Math.toDegrees(azimuth) + 360) % 360);
 
-                azimuthTextView.setText(String.format(Locale.getDefault(),"%f°",azimuthTo360));
+                azimuthTextView.setText(String.format(Locale.getDefault(),"%d°", (int) azimuthTo360));
                 compass.setRotation(-azimuthTo360);
             }
         }
